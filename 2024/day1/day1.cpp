@@ -1,47 +1,38 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
-
+#include <queue>
+#include <sstream>
+#include <numeric>
 using namespace std;
 
 int main() {
-    string text;
-
     ifstream read("day1Input.txt");
-    vector<float> input;
-    int i = 0;
-    while(getline (read, text)) {
-        input.push_back(stof(text));
+    vector<float> left, right, difference;
+    string line;
+    
+    while (getline(read, line)) {
+        stringstream ss(line);
+        float num1, num2;
+
+        if (ss >> num1 >> num2) {
+            left.push_back(num1);
+            right.push_back(num2);
+        }
     }
 
-    read.close();
+    difference.resize(left.size());  
+    sort(left.begin(),left.end());
+    sort(right.begin(),right.end());
 
-
-    vector<float> left;
-    vector<float> right;
-    int n = 1;
-    int m = 1;
-    for (int i = 1; i < input.size()+1; i++) {
-        if (i%2 == 1) {
-            left[n] = input[i];
-            cout << left[n] << endl;
-            n++;
-        } else {
-            right[m] = input[i];
-            m++;
+    for (int i = 0; i < left.size(); i++) {
+            difference[i] = abs(left[i]-right[i]);
         }
 
-        }
+    int sumDifference = 0;
+    
+    sumDifference = accumulate(difference.begin(), difference.end(), 0);
+    cout << sumDifference << endl;
 
-    cout << "Left:" << endl;
-
-    for (float element: left) {
-        cout << element << endl;
-    }
-
-    cout << "Right:" << endl;
-
-    for (float element: right) {
-        cout << element << endl;
-    }
+    return 0;
 }
