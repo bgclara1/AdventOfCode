@@ -6,9 +6,25 @@
 #include <numeric>
 using namespace std;
 
+int simScore(vector<int> left, vector<int> right) {
+    int sim = 0;
+
+    for (int i = 0; i < left.size(); i++) {
+        int count = 0; 
+        for (int j = 0; j < right.size(); j++) {
+            if (left[i] == right[j]) {
+                count++;
+            }
+        }
+        sim += left[i] * count;
+    }
+
+    return sim;
+}
+
 int main() {
     ifstream read("day1Input.txt");
-    vector<float> left, right, difference;
+    vector<int> left, right, difference;
     string line;
     
     while (getline(read, line)) {
@@ -30,9 +46,15 @@ int main() {
         }
 
     int sumDifference = 0;
-    
+
     sumDifference = accumulate(difference.begin(), difference.end(), 0);
+    cout << "Part A Answer: " << endl;
     cout << sumDifference << endl;
+
+    cout << "Part B Answer: " << endl;
+    
+    int partB = simScore(left, right);
+    cout << partB << endl;
 
     return 0;
 }
