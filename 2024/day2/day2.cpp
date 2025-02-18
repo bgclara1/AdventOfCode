@@ -62,12 +62,7 @@ int main() {
     }
 
     cout << numsafe << endl;
-
-
-
-
-
-
     return 0;
 }
+
 
